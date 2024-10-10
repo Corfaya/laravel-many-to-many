@@ -22,12 +22,21 @@
                     <p>{{$project->description}}</p>
                </div>
                <div class="pt-3 d-flex align-items-end justify-content-end">
-                <h5>Tipologia di lavoro: 
+                <h5>Field: 
                     @if ($project->type)
                         <strong>{{$project->type->name}}</strong>
                     @else
-                        <strong>Non specificata</strong>
+                        <strong>Unspecified</strong>
                     @endif
+                </h5>
+               </div>
+               <div class="pt-1 d-flex align-items-end justify-content-end">
+                <h5>Technologies:
+                    @forelse($project->technologies as $tech)
+                        <strong>{{$tech->name}}</strong>
+                    @empty
+                        <strong>Unspecified</strong>
+                    @endempty
                 </h5>
                </div>
             </div>
