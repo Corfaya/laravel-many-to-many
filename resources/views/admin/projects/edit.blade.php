@@ -50,6 +50,23 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
+                            <div class="form-check-inline">
+                                @foreach ($technologies as $tech)
+                                {{-- Se sono presenti errori nella sottomissione della form, mostro tag inseriti prima del submit --}}
+                                    @if ($errors->any())
+                                        <input type="checkbox" name="techs[]" id="" class="form-check-input" value="{{$tech->id}}" {{in_array($tech->id, old('techs') ? 'checked' : '')}}>
+                                        {{-- Altrimenti mostro quelli preeimpostati --}}
+                                    @else
+                                        <input type="checkbox" name="techs[]" id="" class="form-check-input" value="{{$tech->id}}" {{$project->technologies->contains($tech->id) ? 'checked' : ''}}>
+                                    @endif
+                                    <label for="" class="form-check-label">{{$tech->name}}</label>
+                                @endforeach
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
                             <label class="form-label fw-bolder m-0 py-1" for="description">Small description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" cols="10">{{old('description', $project->description)}}</textarea>
                             @error('description')
