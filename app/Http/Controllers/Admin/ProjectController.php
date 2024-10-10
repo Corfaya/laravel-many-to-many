@@ -52,6 +52,15 @@ class ProjectController extends Controller
 
         $project->fill($form_data);
         $project->save();
+
+        //Controllo per checkbox: se l'HTTP request contiene in campo 'tech'
+        if($request->has('tech')) {
+            //salva il valore del campo (l'array di id)
+            $tech = $request->tech;
+            // attach()->prendo array di tech e creo record nella pivot che rappresenta la relazione m-to-m
+            $project->technologies()->attach($tech);
+        }
+
         return redirect()->route('admin.projects.index');
     }
 
