@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,9 +30,10 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -54,11 +56,11 @@ class ProjectController extends Controller
         $project->save();
 
         //Controllo per checkbox: se l'HTTP request contiene in campo 'tech'
-        if($request->has('tech')) {
+        if($request->has('techs')) {
             //salva il valore del campo (l'array di id)
-            $tech = $request->tech;
+            $techs = $request->techs;
             // attach()->prendo array di tech e creo record nella pivot che rappresenta la relazione m-to-m
-            $project->technologies()->attach($tech);
+            $project->technologies()->attach($techs);
         }
 
         return redirect()->route('admin.projects.index');
@@ -84,8 +86,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

@@ -22,7 +22,13 @@
                     <p>{{$project->description}}</p>
                </div>
                <div class="pt-3 d-flex align-items-end justify-content-end">
-                <h5>Tipologia di lavoro: <strong>{{$project->type->name}}</strong></h5>
+                <h5>Tipologia di lavoro: 
+                    @if ($project->type)
+                        <strong>{{$project->type->name}}</strong>
+                    @else
+                        <strong>Non specificata</strong>
+                    @endif
+                </h5>
                </div>
             </div>
         </div>

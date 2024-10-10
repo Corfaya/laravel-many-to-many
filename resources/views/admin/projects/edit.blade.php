@@ -25,7 +25,7 @@
                     </div>
                     <div class="row gy-3">
                         <div class="col-12 col-md-6">
-                            <label class="form-label fw-bolder m-0 py-1" for="type">Di che tipo di lavoro si tratta</label>
+                            <label class="form-label fw-bolder m-0 py-1" for="type">Field</label>
                             <select class="form-control" name="type_id" required>
                                 <option value="">-- Seleziona un tipo --</option>
                                 @foreach ($types as $type)
