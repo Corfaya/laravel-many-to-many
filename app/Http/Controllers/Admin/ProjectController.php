@@ -133,6 +133,9 @@ class ProjectController extends Controller
         if(!Str::startsWith($project->preview, 'https')) {
             Storage::disk('public')->delete($project->preview);
         }
+
+        $project->technologies()->sync([]);
+
         $project->delete();
         return redirect()->route('admin.projects.index');
     }
