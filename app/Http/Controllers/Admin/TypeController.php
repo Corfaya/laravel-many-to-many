@@ -27,7 +27,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -36,9 +36,13 @@ class TypeController extends Controller
      * @param  \App\Http\Requests\StoreTypeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTypeRequest $request)
+    public function store(StoreTypeRequest $request, Type $type)
     {
-        //
+        $form_data = $request->validated();
+        $form_data['slug'] = Type::generateSlug($form_data['name']);
+        $type->fill($form_data);
+        $type->save();
+        return redirect()->route('admin.types.index');
     }
 
     /**
@@ -87,6 +91,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index');
     }
 }

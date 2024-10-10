@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="text-center pb-3">Projects</h1>
-                    <a href="{{route('admin.projects.create')}}" class="text-decoration-none btn btn-sm btn-primary">
+                    <h1 class="text-center pb-3">Types</h1>
+                    <a href="{{route('admin.types.create')}}" class="text-decoration-none btn btn-sm btn-primary">
                         <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
@@ -29,10 +29,10 @@
                                     <a href="{{route('admin.types.edit', ['type' => $type->id])}}" class="btn btn-sm btn-warning mx-2">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="" method="POST">
+                                    <form action="{{ route('admin.types.destroy', ['type' => $type->id])}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger project-remove" data-proj="{{$type->name}}"><i class="bi bi-trash-fill"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-danger type-remove" data-type="{{$type->name}}"><i class="bi bi-trash-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -42,5 +42,5 @@
             </div>
         </div>
     </div>
-    @include('admin.projects.partials.modal_del')
+    @include('admin.types.partials.modal_del')
 @endsection
