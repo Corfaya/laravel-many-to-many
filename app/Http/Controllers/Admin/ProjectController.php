@@ -117,6 +117,8 @@ class ProjectController extends Controller
         if($request->has('techs')) {
             //sincronizzo le relazioni: se ci sono ID già presenti, rimane invariato; se ci sono nuovi Id non collegati, vengono aggiunti; se ci sono ID non più presenti nell'array, vengono rimossi
             $project->technologies()->sync($request->techs);
+        } else {
+            $project->technologies()->sync([]);
         }
 
         return redirect()->route('admin.projects.show', compact('project'));
